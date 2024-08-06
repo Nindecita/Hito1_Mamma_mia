@@ -1,9 +1,8 @@
 .header-banner {
-    background-image: url('../src/img/banner.jpg'); /* Ajusta la ruta según sea necesario */
+    background-image: url('../src/img/banner.jpg'); 
     background-size: cover;
     background-position: center;
-    height: 400px; /* Ajusta la altura según lo que necesites */
-    position: relative; /* Necesario para posicionar el overlay */
+    height: 400px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,8 +18,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white; /* Color del texto */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente opcional */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
     text-align: center;
   } 
   
