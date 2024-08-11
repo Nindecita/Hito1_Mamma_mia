@@ -10,7 +10,7 @@ function NavbarApp() {
     <Navbar bg="dark" data-bs-theme="dark">
       <Container className="d-flex justify-content-between align-items-center">
         <Nav className="d-flex align-items-center gap-2">
-        <Navbar.Brand href="#home">Pizzería Mamma Mia!</Navbar.Brand>
+          <Navbar.Brand href="#home">Pizzería Mamma Mia!</Navbar.Brand>
           <Button className="btn-sm" variant="outline-light" href="#home">
             🍕Home
           </Button>
@@ -23,21 +23,13 @@ function NavbarApp() {
               >
                 🔓Profile
               </Button>
-              <Button
-                className="btn-sm"
-                variant="outline-light"
-                href="#Logout"
-              >
+              <Button className="btn-sm" variant="outline-light" href="#Logout">
                 🔒Logout
               </Button>
             </>
           ) : (
             <>
-              <Button
-                className="btn-sm"
-                variant="outline-light"
-                href="#Login"
-              >
+              <Button className="btn-sm" variant="outline-light" href="#Login">
                 🔐Login
               </Button>
               <Button
@@ -51,11 +43,7 @@ function NavbarApp() {
           )}
         </Nav>
         {token && (
-          <Button
-            className="btn-sm" 
-            variant="outline-info"
-            href="#total"
-          >
+          <Button className="btn-sm" variant="outline-info" href="#total">
             🛒Total: {formatCurrency(total)}
           </Button>
         )}
