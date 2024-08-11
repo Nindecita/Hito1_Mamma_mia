@@ -15,11 +15,11 @@ const CardPizza = ({ name, price, ingredients, img }) => {
           <div className="d-flex justify-content-center fs-6">
             <Card.Text>Ingredientes</Card.Text>
           </div>
-          <Card.Text>
-            <div className="d-flex justify-content-center gap-1 fs-6 ">
+          <Card.Text  className="d-flex justify-content-center gap-1 fs-6">
+        
               🍕
-              <p>{ingredients.join(', ')}</p>
-            </div>
+              <span>{ingredients.join(', ')}</span>
+            
           </Card.Text>
           <hr />
           <div className="d-flex justify-content-center">
