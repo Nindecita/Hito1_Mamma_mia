@@ -2,7 +2,6 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { formatCurrency } from "../helpers/format";
 import { nanoid } from "nanoid";
-
 import React from "react";
 
 const CardPizza = ({ name, price, ingredients, img }) => {

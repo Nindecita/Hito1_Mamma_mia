@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { CardBody } from "react-bootstrap";
 import { Container, Card, Button } from "react-bootstrap";
 import { formatCurrency } from "../helpers/format";
 import { pizzas } from "../pizzas";
@@ -11,6 +10,7 @@ const Cart = () => {
     (acc, product) => acc + product.price * product.quantity,
     0
   );
+
   const increaseQuantity = (id) => {
     const data = [...cart]; // estamos creando una copia de cart
     const index = data.findIndex((p) => p.id == id); // cuando index recorra la copia de cart y sean iguales los id
@@ -24,13 +24,12 @@ const Cart = () => {
     const data = [...cart]; // Creamos una copia del carrito
     const index = data.findIndex((p) => p.id == id); // Encontramos el índice del producto con el id dado
 
-    if (data[index].quantity > 1) {
-      // Si la cantidad es mayor que 1, la reducimos en 1
-      const newQuantity = Number(data[index].quantity) - 1;
-      data[index].quantity = newQuantity;
+    const newQuantity = Number(data[index].quantity) - 1; // Reducimos la cantidad en 1
+
+    if (newQuantity === 0) {
+      data.splice(index, 1); // Si la cantidad es 0, eliminamos el producto del carrito
     } else {
-      // Si la cantidad es 1, eliminamos el producto del carrito
-      data.splice(index, 1);
+      data[index].quantity = newQuantity; // Si la cantidad es mayor que 0, la actualizamos
     }
 
     setCart(data); // Actualizamos el carrito con la nueva data
