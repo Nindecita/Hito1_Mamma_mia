@@ -111,8 +111,4 @@ const RegisterPage = () => {
 
 export default RegisterPage;
 
-/*codigo en la card
-<div className="d-flex gap-3">
-  <button className="btn btn-primary">-</button>
-  <button className="btn btn-primary">+</button>
-</div>;*/
+

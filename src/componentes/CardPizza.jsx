@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { formatCurrency } from "../helpers/format";
+import { nanoid } from "nanoid";
 
 import React from "react";
 
@@ -15,11 +16,13 @@ const CardPizza = ({ name, price, ingredients, img }) => {
           <div className="d-flex justify-content-center fs-6">
             <Card.Text>Ingredientes</Card.Text>
           </div>
-          <Card.Text  className="d-flex justify-content-center gap-1 fs-6">
-        
-              🍕
-              <span>{ingredients.join(', ')}</span>
-            
+          <Card.Text className="d-flex justify-content-center gap-1 fs-6">
+            🍕
+            <ul className="d-flex gap-2">
+              {ingredients.map((i) => (
+                <li key={nanoid()}>{i}</li>
+              ))}
+            </ul>
           </Card.Text>
           <hr />
           <div className="d-flex justify-content-center">

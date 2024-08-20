@@ -1,20 +1,23 @@
 import React from "react";
 import Header from "./Header";
 import CardPizza from "./CardPizza";
-import { detailPizza } from "../details";
+import { pizzas } from "../pizzas";
 
 function Home() {
   return (
     <div>
       <Header />
       <div className="d-flex justify-content-center gap-3 mt-3 mb-3">
-        {detailPizza.map((d, index) => (
+        <h1>Ingredientes:</h1>
+
+        {pizzas.map((p) => (
           <CardPizza
-            key={index}
-            name={d.name}
-            price={d.price}
-            ingredients={d.ingredients}
-            img={d.img}
+            key={p.id}
+            desc={p.desc}
+            img={p.img}
+            ingredients={p.ingredients}
+            name={p.name}
+            price={p.price}
           />
         ))}
       </div>
