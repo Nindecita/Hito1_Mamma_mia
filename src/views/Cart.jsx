@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { formatCurrency } from "../helpers/format";
-import { pizzas } from "../pizzas";
+
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzas);
+  const [cart, setCart] = useState([]);
 
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.quantity,

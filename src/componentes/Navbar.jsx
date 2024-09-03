@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";
 import { formatCurrency } from "../helpers/format";
+import { Link } from "react-router-dom";
 
 function NavbarApp() {
   const total = 25000;
@@ -11,41 +12,59 @@ function NavbarApp() {
       <Container className="d-flex justify-content-between align-items-center">
         <Nav className="d-flex align-items-center gap-2">
           <Navbar.Brand href="#home">Pizzería Mamma Mia!</Navbar.Brand>
-          <Button className="btn-sm" variant="outline-light" href="#home">
-            🍕Home
-          </Button>
+
+          <Link to="/">
+            <Button className="btn-sm" variant="outline-light" href="#home">
+              🍕Home
+            </Button>
+          </Link>
+
           {token ? (
             <>
-              <Button
-                className="btn-sm"
-                variant="outline-light"
-                href="#profile"
-              >
-                🔓Profile
-              </Button>
+              <Link to="/Profile">
+                <Button
+                  className="btn-sm"
+                  variant="outline-light"
+                  href="#profile"
+                >
+                  🔓Profile
+                </Button>
+              </Link>
+
               <Button className="btn-sm" variant="outline-light" href="#Logout">
                 🔒Logout
               </Button>
             </>
           ) : (
             <>
-              <Button className="btn-sm" variant="outline-light" href="#Login">
-                🔐Login
-              </Button>
-              <Button
-                className="btn-sm"
-                variant="outline-light"
-                href="#register"
-              >
-                🔐Register
-              </Button>
+              <Link to="/LoginPage">
+                <Button
+                  className="btn-sm"
+                  variant="outline-light"
+                  href="#Login"
+                >
+                  🔐Login
+                </Button>
+              </Link>
+              <Link to="/RegisterPage">
+                <Button
+                  className="btn-sm"
+                  variant="outline-light"
+                  href="#register"
+                >
+                  🔐Register
+                </Button>
+              </Link>
             </>
           )}
         </Nav>
+
         {token && (
-          <Button className="btn-sm" variant="outline-info" href="#total">
-            🛒Total: {formatCurrency(total)}
-          </Button>
+          <Link to="/Cart">
+            <Button className="btn-sm" variant="outline-info" href="#total">
+              🛒Total: {formatCurrency(total)}
+            </Button>
+          </Link>
         )}
       </Container>
     </Navbar>
