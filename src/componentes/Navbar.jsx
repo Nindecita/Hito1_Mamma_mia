@@ -11,7 +11,9 @@ function NavbarApp() {
     <Navbar bg="dark" data-bs-theme="dark">
       <Container className="d-flex justify-content-between align-items-center">
         <Nav className="d-flex align-items-center gap-2">
-          <Navbar.Brand href="#home">Pizzería Mamma Mia!</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
+            Pizzería Mamma Mia!
+          </Navbar.Brand>
 
           <Link to="/">
             <Button className="btn-sm" variant="outline-light" href="#home">
