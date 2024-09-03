@@ -9,6 +9,7 @@ import LoginPage from "./views/LoginPage";
 import Pizzas from "./componentes/Pizzas";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from "./views/Profile";
+import NotFound from "./views/NotFound";
 
 function App() {
   return (
@@ -21,9 +22,10 @@ function App() {
           <Route path="/LoginPage" element={<LoginPage />}></Route>
           <Route path="/Cart" element={<Cart />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
+          <Route path="/Pizza/p001" element={<Pizzas />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
-      {/*<Pizzas />*/}
       <Footer />
     </>
   );
