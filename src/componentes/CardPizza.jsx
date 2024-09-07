@@ -4,6 +4,7 @@ import { formatCurrency } from "../helpers/format";
 import { nanoid } from "nanoid";
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { Bounce, toast } from "react-toastify";
 
 const CardPizza = ({
   desc = null, // para validar la descripcion, en home no se usa, en  profile si
@@ -25,6 +26,7 @@ const CardPizza = ({
     };
     addToCart(newElementCart);
   };
+
   return (
     <Card border="warning" style={{ width: "25rem" }}>
       <Card.Img variant="top" src={img} />

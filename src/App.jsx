@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from "./views/Profile";
 import NotFound from "./views/NotFound";
 import CartProvider from "./context/CartContext";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -30,6 +31,19 @@ function App() {
         </BrowserRouter>
         <Footer />
       </CartProvider>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Bounce
+      />
     </>
   );
 }

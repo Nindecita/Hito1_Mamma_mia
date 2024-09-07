@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { Bounce, toast } from "react-toastify";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
@@ -20,10 +21,19 @@ const CartProvider = ({ children }) => {
 			const addNewElement = [...cart, pizza]; // copiamos el carro actual y agregamos el nuevo elemento
 			setCart(addNewElement); // guardo el nuevo estado del carro
 		}
+    toast.success("Pizza agregada al carrito", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
 	};
 	
-	
-
   const calculateAmount = () => {
     const newAmount = cart.reduce(
       (acc, product) => acc + product.pizzaPrice * product.quantity,
@@ -58,6 +68,17 @@ const CartProvider = ({ children }) => {
 		const index = data.findIndex((p) => p.pizzaId == id); // busco el indice en el array
 		data.splice(index, 1); // elimino el elemento
 		setCart(data); // guardo el nuevo estado 
+    toast.error('Pizza eliminada del carrito', {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+      });
 		return
 	}
 
