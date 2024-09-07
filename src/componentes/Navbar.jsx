@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";
 import { formatCurrency } from "../helpers/format";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 function NavbarApp() {
-  const total = 25000;
+  const { amount } = useContext(CartContext);
   const token = true;
 
   return (
@@ -15,23 +16,21 @@ function NavbarApp() {
             Pizzería Mamma Mia!
           </Navbar.Brand>
 
-          <Link to="/">
-            <Button className="btn-sm" variant="outline-light" href="#home">
-              🍕Home
-            </Button>
-          </Link>
+          {/* Usar `as={Link}` para los botones */}
+          <Button as={Link} to="/" className="btn-sm" variant="outline-light">
+            🍕Home
+          </Button>
 
           {token ? (
             <>
-              <Link to="/Profile">
-                <Button
-                  className="btn-sm"
-                  variant="outline-light"
-                  href="#profile"
-                >
-                  🔓Profile
-                </Button>
-              </Link>
+              <Button
+                as={Link}
+                to="/Profile"
+                className="btn-sm"
+                variant="outline-light"
+              >
+                🔓Profile
+              </Button>
 
               <Button className="btn-sm" variant="outline-light" href="#Logout">
                 🔒Logout
@@ -39,34 +38,35 @@ function NavbarApp() {
             </>
           ) : (
             <>
-              <Link to="/LoginPage">
-                <Button
-                  className="btn-sm"
-                  variant="outline-light"
-                  href="#Login"
-                >
-                  🔐Login
-                </Button>
-              </Link>
-              <Link to="/RegisterPage">
-                <Button
-                  className="btn-sm"
-                  variant="outline-light"
-                  href="#register"
-                >
-                  🔐Register
-                </Button>
-              </Link>
+              <Button
+                as={Link}
+                to="/LoginPage"
+                className="btn-sm"
+                variant="outline-light"
+              >
+                🔐Login
+              </Button>
+              <Button
+                as={Link}
+                to="/RegisterPage"
+                className="btn-sm"
+                variant="outline-light"
+              >
+                🔐Register
+              </Button>
             </>
           )}
         </Nav>
 
         {token && (
-          <Link to="/Cart">
-            <Button className="btn-sm" variant="outline-info" href="#total">
-              🛒Total: {formatCurrency(total)}
-            </Button>
-          </Link>
+          <Button
+            as={Link}
+            to="/Cart"
+            className="btn-sm"
+            variant="outline-info"
+          >
+            🛒Total: {formatCurrency(amount)}
+          </Button>
         )}
       </Container>
     </Navbar>

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 function Home() {
   const [pizzas, setPizzas] = useState([]);
-
   useEffect(() => {
     getPizzas();
   }, []);
@@ -29,6 +28,7 @@ function Home() {
                 name={p.name}
                 price={p.price}
                 isHome={true}
+                id={p.id}
               />
             </div>
           ))}
