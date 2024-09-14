@@ -4,7 +4,7 @@ import { formatCurrency } from "../helpers/format";
 import { nanoid } from "nanoid";
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { Bounce, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CardPizza = ({
   desc = null, // para validar la descripcion, en home no se usa, en  profile si
@@ -13,9 +13,10 @@ const CardPizza = ({
   ingredients = [], // se deja array vacio por si no viene nada desde la vista
   img,
   isHome, // (true - false) para validar boton ver mas en home, en profile no se usa
-  id,
+  id, // id que viene del home es el id de cada pizza
 }) => {
   const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
   const createCart = (pizzaId, pizzaName, pizzaImg, pizzaPrice) => {
     const newElementCart = {
       pizzaId,
@@ -64,7 +65,11 @@ const CardPizza = ({
           }
         >
           {isHome ? (
-            <Button className="border" variant="light">
+            <Button
+              className="border"
+              variant="light"
+              onClick={() => navigate(`/pizza/${id}`)}
+            >
               Ver mas 👀
             </Button>
           ) : null}

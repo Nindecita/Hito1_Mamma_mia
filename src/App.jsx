@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import { useContext } from "react";
 import Navbar from "./componentes/Navbar";
 import Home from "./views/Home";
 import Footer from "./componentes/Footer";
@@ -7,13 +7,17 @@ import Cart from "./views/Cart";
 import RegisterPage from "./views/RegisterPage";
 import LoginPage from "./views/LoginPage";
 import Pizzas from "./componentes/Pizzas";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Profile from "./views/Profile";
 import NotFound from "./views/NotFound";
 import CartProvider from "./context/CartContext";
 import { ToastContainer } from "react-toastify";
+import Logout from "./views/Logout";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  const { token } = useContext(AuthContext);
+
   return (
     <>
       <CartProvider>
@@ -24,13 +28,18 @@ function App() {
             <Route path="/RegisterPage" element={<RegisterPage />}></Route>
             <Route path="/LoginPage" element={<LoginPage />}></Route>
             <Route path="/Cart" element={<Cart />}></Route>
-            <Route path="/Profile" element={<Profile />}></Route>
-            <Route path="/Pizza/p001" element={<Pizzas />}></Route>
+            <Route
+              path="/Profile"
+              element={token ? <Profile /> : <Navigate to="/LoginPage" />}
+            ></Route>
+            <Route path="/Pizza/:pizza_id" element={<Pizzas />}></Route>
             <Route path="*" element={<NotFound />}></Route>
+            <Route path="/Logout" element={<Logout />}></Route>
           </Routes>
         </BrowserRouter>
         <Footer />
       </CartProvider>
+
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

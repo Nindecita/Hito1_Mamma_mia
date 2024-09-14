@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { formatCurrency } from "../helpers/format";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
-
+import { motion } from "framer-motion";
+import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 const Cart = () => {
   const {
     amount,
@@ -12,6 +14,23 @@ const Cart = () => {
     cart,
     deleteElementCart,
   } = useContext(CartContext);
+  const { token } = useContext(AuthContext);
+  const validateAuth = () => {
+    if (!token){
+      Swal.fire({
+        title: "Error!",
+        text: "Debes iniciar sesión para poder realizar el pago",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+    }
+    Swal.fire({
+      title: "Success",
+      text: "Procesando pago",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+  };
 
   return (
     <>
@@ -37,32 +56,40 @@ const Cart = () => {
                       </Card.Text>
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="d-flex gap-3 align-items-center">
-                          <Button
+                          <motion.button
                             className="border"
                             variant="light"
                             onClick={() => decreaseQuantity(c.pizzaId)}
+                            whileTap={{ scale: 2.2 }}
                           >
                             -
-                          </Button>
-                          <span>{c.quantity}</span>
+                          </motion.button>
+                          <motion.span
+                            whileHover={{ scale: 2.2 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            {c.quantity}
+                          </motion.span>
+                          <motion.button
+                            className="border"
+                            variant="light"
+                            onClick={() => increaseQuantity(c.pizzaId)}
+                            whileTap={{ scale: 2.2 }}
+                          >
+                            +
+                          </motion.button>
                         </div>
-                        <Button
-                          className="border"
-                          variant="light"
-                          onClick={() => increaseQuantity(c.pizzaId)}
-                        >
-                          +
-                        </Button>
                         <strong>
                           Total:$ {formatCurrency(c.pizzaPrice * c.quantity)}
                         </strong>
 
-                        <Button
+                        <motion.button
                           className="btn btn-danger"
                           onClick={() => deleteElementCart(c.pizzaId)}
+                          whileHover={{ scale: 1.1 }}
                         >
                           🗑️
-                        </Button>
+                        </motion.button>
                       </div>
                     </Card.Body>
                   </div>
@@ -71,7 +98,12 @@ const Cart = () => {
             ))}
             <div className="pt-3 text-center">
               <h3>Total carrito: ${formatCurrency(amount)}</h3>
-              <Button variant="warning" className="mt-2">
+              <Button
+                variant="warning"
+                className="mt-2"
+                disabled={!token}
+                onClick={() => validateAuth()}
+              >
                 Pagar
               </Button>
             </div>

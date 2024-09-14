@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
-
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const validaFormulario = (e) => {
     e.preventDefault();
@@ -15,6 +17,7 @@ const LoginPage = () => {
         icon: "error",
         confirmButtonText: "Cerrar",
       });
+      navigate("/registerPage");
     } else {
       if (password.length >= 6) {
         Swal.fire({
@@ -23,6 +26,7 @@ const LoginPage = () => {
           icon: "success",
           confirmButtonText: "Cerrar",
         });
+        navigate("/Profile");
       } else {
         Swal.fire({
           title: "Error!",
@@ -30,6 +34,7 @@ const LoginPage = () => {
           icon: "error",
           confirmButtonText: "Cerrar",
         });
+        navigate("/registerPage");
       }
     }
 

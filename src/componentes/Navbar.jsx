@@ -1,12 +1,19 @@
 import React, { useContext } from "react";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";
 import { formatCurrency } from "../helpers/format";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 
 function NavbarApp() {
   const { amount } = useContext(CartContext);
-  const token = true;
+  const { token } = useContext(AuthContext)
+  console.log(token);
+  
+  const setActiveClass = ({ isActive }) =>
+    isActive
+      ? "text-warning mt-2 pe-2 text-decoration-none"
+      : "text-white mt-2 pe-2 text-decoration-none";
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
@@ -17,55 +24,47 @@ function NavbarApp() {
           </Navbar.Brand>
 
           {/* Usar `as={Link}` para los botones */}
-          <Button as={Link} to="/" className="btn-sm" variant="outline-light">
-            🍕Home
+          <Button className="btn-sm" variant="outline-light">
+            <NavLink to="/" className={setActiveClass}>
+              🍕Home
+            </NavLink>
           </Button>
 
           {token ? (
             <>
-              <Button
-                as={Link}
-                to="/Profile"
-                className="btn-sm"
-                variant="outline-light"
-              >
-                🔓Profile
+              <Button className="btn-sm" variant="outline-light">
+                <NavLink to="/profile" className={setActiveClass}>
+                  🔓Profile
+                </NavLink>
               </Button>
 
-              <Button className="btn-sm" variant="outline-light" href="#Logout">
-                🔒Logout
+              <Button className="btn-sm" variant="outline-light">
+                <NavLink to="/Logout" className={setActiveClass}>
+                  🔒Logout
+                </NavLink>
               </Button>
             </>
           ) : (
             <>
-              <Button
-                as={Link}
-                to="/LoginPage"
-                className="btn-sm"
-                variant="outline-light"
-              >
-                🔐Login
+              <Button className="btn-sm" variant="outline-light">
+                <NavLink to="/LoginPage" className={setActiveClass}>
+                  🔐Login
+                </NavLink>
               </Button>
-              <Button
-                as={Link}
-                to="/RegisterPage"
-                className="btn-sm"
-                variant="outline-light"
-              >
-                🔐Register
+              <Button className="btn-sm" variant="outline-light">
+                <NavLink to="/registerPage" className={setActiveClass}>
+                  🔐Register
+                </NavLink>
               </Button>
             </>
           )}
         </Nav>
 
         {token && (
-          <Button
-            as={Link}
-            to="/Cart"
-            className="btn-sm"
-            variant="outline-info"
-          >
-            🛒Total: {formatCurrency(amount)}
+          <Button className="btn-sm" variant="outline-info">
+            <NavLink to="/Cart" className={setActiveClass}>
+              🛒Total: {formatCurrency(amount)}
+            </NavLink>
           </Button>
         )}
       </Container>
