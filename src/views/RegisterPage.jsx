@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
+  const { registerUser } = useContext(AuthContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const validaFormulario = (e) => {
+  const validaFormulario = async (e) => {
     e.preventDefault();
     if (
       email.toLowerCase().trim() == "" ||
@@ -21,12 +25,16 @@ const RegisterPage = () => {
       });
     } else {
       if (password === confirmPassword && password.length >= 6) {
-        Swal.fire({
-          title: "Success!",
-          text: "Formulario enviado con éxito",
-          icon: "success",
-          confirmButtonText: "Cerrar",
-        });
+        const user = await registerUser(email, password, confirmPassword)
+        if (user){
+          Swal.fire({
+            title: "Success!",
+            text: "Cuenta creada con éxito",
+            icon: "success",
+            confirmButtonText: "Cerrar",
+          });
+          navigate('/')
+        }
       } else {
         console.log(
           "El password y el password confirmation deben ser iguales y superior 6 carácteres"

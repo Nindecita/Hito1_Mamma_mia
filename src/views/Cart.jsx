@@ -15,21 +15,52 @@ const Cart = () => {
     deleteElementCart,
   } = useContext(CartContext);
   const { token } = useContext(AuthContext);
+  
+  const checkoutCart = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/checkouts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviamos el token para autenticación
+        },
+        body: JSON.stringify({ cart, totalAmount: amount }), // Enviamos el carrito y el monto total
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al procesar el pago. Intenta nuevamente.");
+      }
+
+      const result = await response.json();
+
+      Swal.fire({
+        title: "Pago exitoso",
+        text: `Gracias por tu compra!`,
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+    }
+  };
+
   const validateAuth = () => {
-    if (!token){
+    if (!token) {
       Swal.fire({
         title: "Error!",
         text: "Debes iniciar sesión para poder realizar el pago",
         icon: "error",
         confirmButtonText: "Cerrar",
       });
+      return;
     }
-    Swal.fire({
-      title: "Success",
-      text: "Procesando pago",
-      icon: "success",
-      confirmButtonText: "Cerrar",
-    });
+
+    checkoutCart();
   };
 
   return (

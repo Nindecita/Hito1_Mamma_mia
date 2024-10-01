@@ -4,16 +4,22 @@ import { formatCurrency } from "../helpers/format";
 import { Link, NavLink } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function NavbarApp() {
   const { amount } = useContext(CartContext);
-  const { token } = useContext(AuthContext)
-  console.log(token);
-  
+  const { token, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const setActiveClass = ({ isActive }) =>
     isActive
       ? "text-warning mt-2 pe-2 text-decoration-none"
       : "text-white mt-2 pe-2 text-decoration-none";
+
+  const handleLogout = () => {
+    logout();
+    navigate("/LoginPage");
+  };
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
@@ -23,7 +29,6 @@ function NavbarApp() {
             Pizzería Mamma Mia!
           </Navbar.Brand>
 
-          {/* Usar `as={Link}` para los botones */}
           <Button className="btn-sm" variant="outline-light">
             <NavLink to="/" className={setActiveClass}>
               🍕Home
@@ -38,10 +43,12 @@ function NavbarApp() {
                 </NavLink>
               </Button>
 
-              <Button className="btn-sm" variant="outline-light">
-                <NavLink to="/Logout" className={setActiveClass}>
-                  🔒Logout
-                </NavLink>
+              <Button
+                className="btn-sm"
+                variant="outline-light"
+                onClick={handleLogout}
+              >
+                🔒Logout
               </Button>
             </>
           ) : (

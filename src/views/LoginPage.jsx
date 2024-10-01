@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const LoginPage = () => {
+  const { userLogin } = useContext(AuthContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-
-  const validaFormulario = (e) => {
+  
+  const validaFormulario = async (e) => {
     e.preventDefault();
     if (email.toLowerCase().trim() == "" || password.trim() == "") {
       Swal.fire({
@@ -20,13 +22,16 @@ const LoginPage = () => {
       navigate("/registerPage");
     } else {
       if (password.length >= 6) {
-        Swal.fire({
-          title: "Success!",
-          text: "Haz iniciado sesión correctamente",
-          icon: "success",
-          confirmButtonText: "Cerrar",
-        });
-        navigate("/Profile");
+        const user = await authUser()
+        if(user){
+          Swal.fire({
+            title: "Success!",
+            text: "Haz iniciado sesión correctamente",
+            icon: "success",
+            confirmButtonText: "Cerrar",
+          });
+          navigate('/Profile')
+        }
       } else {
         Swal.fire({
           title: "Error!",
@@ -37,10 +42,15 @@ const LoginPage = () => {
         navigate("/registerPage");
       }
     }
-
+    
     setEmail("");
     setPassword("");
   };
+
+  const authUser = async () =>{
+    return userLogin(email, password)
+  }
+  
   return (
     <>
       <div className="d-flex justify-content-center align-items-center">

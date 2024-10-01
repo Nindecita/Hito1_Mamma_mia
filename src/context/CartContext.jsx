@@ -1,16 +1,28 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Bounce, toast } from "react-toastify";
+import { AuthContext } from "./AuthContext";
+import Swal from "sweetalert2";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [amount, setAmount] = useState(0);
-
+  const { token } = useContext(AuthContext)
+  
 	useEffect(() => { // agrego un useEffect para calcular el precio cada vez que se modifique el carrito
     calculateAmount();
   }, [cart]);
 
 	const addToCart = (pizza) => {
+    if(!token){
+      Swal.fire({
+        title: "Error!",
+        text: "Para agregar al carro debes iniciar sesion o registrate",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+      return
+    }
 		const findPizzaIndex = cart.findIndex(p => p.pizzaId === pizza.pizzaId); // busco el indice del elemento en el carrito
 	
 		if (findPizzaIndex >= 0) { // si encuentra el producto entramos aca
